@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>New onboarding request - Form</title>
+  <link rel="stylesheet" href="/styles.css">
+  <script src="/script.js" defer></script>
+</head>
+<body>
+  <h1>New onboarding request</h1>
+  <% if (errors.length) { %>
+    <ul class="errors">
+        <% errors.forEach((error) => { %>
+        <li><%= error.msg %></li>
+        <% }) %>
+    </ul>
+    <% } %>
+
+  <form method="post" action="/form">
+    <label for="name">Full name</label>
+    <input id="name" name="new_hire_name" type="text" placeholder="John" value="<%= values.new_hire_name || '' %>" required>   
+
+    <label for="email">Email</label>
+    <input id="email" name="new_hire_email" type="email" placeholder="example@email.com" value="<%= values.new_hire_email || '' %>" required>
+
+    <label for="phone">Phone</label>
+    <input id="phone" name="new_hire_phone" type="tel" placeholder="+27 12 345 6789" value="<%= values.new_hire_phone || '' %>" required>
+
+    <label for="start_date">Start date</label>
+    <input id="start_date" name="new_hire_start_date" type="date" value="<%= values.new_hire_start_date|| '' %>" required>
+
+    <select id="job_id" name="job_id" required>
+    <option value="">Select a job</option>
+    <% jobs.forEach((job) => { %>
+        <option value="<%= job.job_id %>" <%= values.job_id === job.job_id ? "selected" : "" %>><%= job.job_name %></option>
+    <% }) %>
+    </select>
+
+    <select id="manager_id" name="manager_id" required>
+    <option value="">Select a manager</option>
+    <% managers.forEach((manager) => { %>
+        <option value="<%= manager.employee_id %>" <%= values.manager_id === manager.employee_id ? "selected" : "" %>><%= manager.employee_name %></option>
+    <% }) %>
+    </select>
+
+    <select id="hr_owner_id" name="hr_owner_id" required>
+    <option value="">Select an HR owner</option>
+    <% hrOwners.forEach((hr) => { %>
+        <option value="<%= hr.employee_id %>" <%= values.hr_owner_id === hr.employee_id ? "selected" : "" %>><%= hr.employee_name %></option>
+    <% }) %>
+    </select>
+
+    <button type="submit">Log request</button>
+  </form>
+</body>
+</html>
