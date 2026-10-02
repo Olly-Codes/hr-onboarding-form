@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Onboarding request</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <h1>Onboarding request</h1>
+
+  <% if (!newHire) { %>
+    <p><%= message %></p>
+  <% } else { %>
+    <ul class="details">
+      <li><strong>Employee name:</strong> <%= newHire.new_hire_name %></li>
+      <li><strong>Role/Job title:</strong> <%= newHire.job.job_name %></li>
+      <li><strong>Department:</strong> <%= newHire.job.departments.department_name %></li>
+      <li><strong>Proposed start date:</strong> <%= newHire.new_hire_start_date %></li>
+    </ul>
+
+    <% if (newHire.approval_status === "Pending") { %>
+      <form method="post" action="/approve/<%= newHire.new_hire_id %>">
+        <button type="submit" name="decision" value="approve">Approve</button>
+        <button type="submit" name="decision" value="reject" class="reject">Reject</button>
+      </form>
+    <% } else { %>
+      <p>This request has been <strong><%= newHire.approval_status %></strong>.</p>
+    <% } %>
+  <% } %>
+</body>
+</html>

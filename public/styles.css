@@ -77,3 +77,24 @@ button:hover {
 p {
   text-align: center;
 }
+
+.details {
+  list-style: none;
+  padding: 0;
+  width: 100%;
+  max-width: 28rem;
+}
+
+.details li {
+  margin: 0.5rem 0;
+}
+
+button.reject {
+  background: white;
+  color: #b3261e;
+  border: 2px solid #b3261e;
+}
+
+button.reject:hover {
+  background: #fdecea;
+}
