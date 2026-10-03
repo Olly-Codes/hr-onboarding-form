@@ -45,10 +45,21 @@ const setApprovalStatus = async (id, status) => {
   if (error) throw error;
 };
 
+const newHireExists = async (id) => {
+  const { data, error } = await supabase
+    .from("new_hires")
+    .select("new_hire_id")
+    .eq("new_hire_id", id)
+    .maybeSingle();
+  if (error) throw error;
+  return Boolean(data);
+};
+
 module.exports = { 
   getAllJobs, 
   getEmployeesByRole, 
   createNewHire,
   getNewHireForApproval,
-  setApprovalStatus 
+  setApprovalStatus,
+  newHireExists
 };
