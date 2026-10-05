@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Onboarding dashboard</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <h1>Onboarding dashboard</h1>
+
+  <% if (!hires.length) { %>
+    <p>No new hires yet.</p>
+  <% } else { %>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Job</th>
+            <th>Department</th>
+            <th>Start date</th>
+            <th>Stage</th>
+            <th>Approval</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% hires.forEach((hire) => { %>
+            <tr>
+              <td><%= hire.new_hire_name %></td>
+              <td><%= hire.job.job_name %></td>
+              <td><%= hire.job.departments.department_name %></td>
+              <td><%= hire.new_hire_start_date %></td>
+              <td><%= hire.new_hire_stage %></td>
+              <td><%= hire.approval_status %></td>
+              <td class="actions">
+                <a href="/hires/<%= hire.new_hire_id %>">View</a>
+                <% if (hire.approval_status === "Pending") { %>
+                  <a href="/approve/<%= hire.new_hire_id %>">Review request</a>
+                <% } %>
+              </td>
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </div>
+  <% } %>
+</body>
+</html>

@@ -98,3 +98,40 @@ button.reject {
 button.reject:hover {
   background: #fdecea;
 }
+
+.table-wrap {
+  width: 100%;
+  max-width: 80rem;
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  padding: 1rem 0.75rem;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+th {
+  border-bottom: 2px solid dodgerblue;
+}
+
+.actions a {
+  margin-right: 0.75rem;
+  color: #fff;
+  font-weight: bold;
+  text-decoration: none;
+
+  background-color: #1873cc;
+  padding: 8px 10px;
+  border-radius: 2px;
+}
+
+.actions a:hover {
+  background-color: dodgerblue;
+}
