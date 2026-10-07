@@ -66,6 +66,19 @@ const getAllNewHires = async () => {
   return data;
 };
 
+const getNewHireDetails = async (id) => {
+  const { data, error } = await supabase
+    .from("new_hires")
+    .select(
+      "new_hire_id, new_hire_name, new_hire_email, new_hire_phone, new_hire_start_date, new_hire_stage, approval_status, job:jobs(job_name, departments(department_name)), manager:employees!manager_id(employee_name, employee_email), hr_owner:employees!hr_owner_id(employee_name, employee_email), documents(document_id, document_name, document_type, status, sent_date)"
+    )
+    .eq("new_hire_id", id)
+    .order("sent_date", { referencedTable: "documents", ascending: true })
+    .maybeSingle();
+  if (error) throw error;
+  return data;
+};
+
 module.exports = { 
   getAllJobs, 
   getEmployeesByRole, 
@@ -73,5 +86,6 @@ module.exports = {
   getNewHireForApproval,
   setApprovalStatus,
   newHireExists,
-  getAllNewHires
+  getAllNewHires,
+  getNewHireDetails
 };
