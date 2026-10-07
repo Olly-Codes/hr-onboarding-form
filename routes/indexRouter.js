@@ -17,6 +17,7 @@ indexRouter.post("/approve/:id", approvalController.approvePost);
 indexRouter.get("/chat-token", chatController.chatTokenGet);
 
 indexRouter.get("/dashboard", dashboardController.dashboardGet);
+indexRouter.get("/hires/:id", dashboardController.hireGet);
 
 module.exports = indexRouter;
 

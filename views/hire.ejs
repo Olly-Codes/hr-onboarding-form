@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>New hire details</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <% if (!hire) { %>
+    <h1>New hire not found</h1>
+    <p>This new hire could not be found.</p>
+  <% } else { %>
+    <h1><%= hire.new_hire_name %></h1>
+
+    <h2>Details</h2>
+    <dl class="details-grid">
+      <dt>Email</dt><dd><%= hire.new_hire_email %></dd>
+      <dt>Phone</dt><dd><%= hire.new_hire_phone || "—" %></dd>
+      <dt>Start date</dt><dd><%= hire.new_hire_start_date %></dd>
+      <dt>Job</dt><dd><%= hire.job.job_name %></dd>
+      <dt>Department</dt><dd><%= hire.job.departments.department_name %></dd>
+    </dl>
+
+    <h2>People</h2>
+    <dl class="details-grid">
+      <dt>Manager</dt><dd><%= hire.manager.employee_name %></dd>
+      <dt>HR owner</dt><dd><%= hire.hr_owner.employee_name %></dd>
+    </dl>
+
+    <h2>Progress</h2>
+    <dl class="details-grid">
+      <dt>Stage</dt><dd><%= hire.new_hire_stage %></dd>
+      <dt>Approval</dt><dd><%= hire.approval_status %></dd>
+    </dl>
+
+    <h2>Documents</h2>
+    <% if (!hire.documents.length) { %>
+      <p>No documents yet.</p>
+    <% } else { %>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Document</th>
+              <th>Type</th>
+              <th>Status</th>
+              <th>Sent</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% hire.documents.forEach((doc) => { %>
+              <tr>
+                <td><%= doc.document_name %></td>
+                <td><%= doc.document_type || "—" %></td>
+                <td><%= doc.status || "—" %></td>
+                <td><%= doc.sent_date ? doc.sent_date.slice(0, 10) : "—" %></td>
+              </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      </div>
+    <% } %>
+  <% } %>
+
+  <p><a href="/dashboard">← Back to dashboard</a></p>
+</body>
+</html>
