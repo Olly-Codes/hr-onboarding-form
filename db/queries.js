@@ -59,9 +59,9 @@ const getAllNewHires = async () => {
   const { data, error } = await supabase
     .from("new_hires")
     .select(
-      "new_hire_id, new_hire_name, new_hire_start_date, new_hire_stage, approval_status, job:jobs(job_name, departments(department_name))"
+      "new_hire_id, new_hire_name, new_hire_start_date, new_hire_stage, approval_status, updated_at, job:jobs(job_name, departments(department_name))"
     )
-    .order("created_at", { ascending: false });
+    .order("updated_at", { ascending: false });
   if (error) throw error;
   return data;
 };
