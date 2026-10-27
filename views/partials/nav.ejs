@@ -1,4 +1,6 @@
+<% const path = typeof currentPath !== "undefined" ? currentPath : ""; %>
 <nav class="nav">
-  <a href="/form">New request</a>
-  <a href="/dashboard">Dashboard</a>
+  <a class="brand" href="/dashboard">HRAutomationLabs</a>
+  <a href="/dashboard" class="<%= path.startsWith('/dashboard') || path.startsWith('/hires') ? 'active' : '' %>">Dashboard</a>
+  <a href="/form" class="<%= path.startsWith('/form') ? 'active' : '' %>">New request</a>
 </nav>
