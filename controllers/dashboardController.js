@@ -1,9 +1,13 @@
 const db = require("../db/queries");
 const isUuid = require("../utils/isUuid");
+const { getDashboardStats, addDashboardFields } = require("../utils/dashboardStats");
 
 const dashboardGet = async (req, res) => {
   const hires = await db.getAllNewHires();
-  res.render("dashboard", { hires });
+  res.render("dashboard", {
+    hires: addDashboardFields(hires),
+    stats: getDashboardStats(hires),
+  });
 };
 
 const hireGet = async (req, res) => {

@@ -8,8 +8,11 @@
   --card: #ffffff;
   --danger: #b3261e;
   --danger-bg: #fdecea;
+  --nav-bg: #0f172a;
   --radius: 12px;
+  --radius-sm: 8px;
   --shadow: 0 1px 3px rgba(15, 23, 42, 0.08), 0 4px 16px rgba(15, 23, 42, 0.06);
+  --sidebar-w: 14.5rem;
 }
 
 * {
@@ -23,7 +26,8 @@ body {
   line-height: 1.5;
   margin: 0;
   min-height: 100vh;
-  padding: 6rem 1rem 3rem;
+  /* left padding leaves room for the fixed sidebar */
+  padding: 2.5rem 1.75rem 3rem calc(var(--sidebar-w) + 1.75rem);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -61,33 +65,70 @@ a {
   color: var(--accent-dark);
 }
 
-/* ---------- Navigation ---------- */
+/* ---------- Side navigation ---------- */
 
 .nav {
   position: fixed;
   top: 0;
+  bottom: 0;
   left: 0;
   z-index: 10;
-  width: 100%;
+  width: var(--sidebar-w);
   display: flex;
-  justify-content: center;
-  gap: 0.5rem;
-  padding: 0.75rem 1rem;
-  background: var(--card);
-  box-shadow: 0 1px 0 var(--line), 0 2px 8px rgba(15, 23, 42, 0.05);
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: 1.25rem 0.75rem;
+  background: var(--nav-bg);
 }
 
 .nav a {
-  padding: 0.4rem 0.9rem;
-  color: var(--accent-dark);
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 0.65rem 0.85rem;
+  color: #cbd5e1;
   font-weight: 600;
   text-decoration: none;
-  transition: background-color 0.15s;
+  white-space: nowrap;
+  border-radius: var(--radius-sm);
+  transition: background-color 0.15s, color 0.15s;
 }
 
 .nav a:hover {
-  background: #eaf4ff;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.08);
 }
+
+.nav a.active {
+  color: #fff;
+  background: rgba(30, 144, 255, 0.25);
+}
+
+.nav a:focus-visible {
+  outline: 3px solid #fff;
+  outline-offset: -3px;
+}
+
+.nav svg {
+  flex: none;
+  width: 1.2rem;
+  height: 1.2rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.nav .brand,
+.nav .brand:hover {
+  margin-bottom: 1rem;
+  color: #fff;
+  font-size: 1.05rem;
+  font-weight: 700;
+  background: none;
+}
+
 
 /* ---------- Forms ---------- */
 
@@ -99,6 +140,7 @@ form {
   max-width: 28rem;
   padding: 2rem;
   background: var(--card);
+  border-radius: var(--radius);
   box-shadow: var(--shadow);
 }
 
@@ -115,6 +157,7 @@ select {
   color: inherit;
   background: #fff;
   border: 1px solid #cbd5e1;
+  border-radius: var(--radius-sm);
   transition: border-color 0.15s, box-shadow 0.15s;
 }
 
@@ -123,6 +166,30 @@ select:focus {
   outline: 2px solid transparent;
   border-color: var(--accent);
   box-shadow: 0 0 0 3px rgba(30, 144, 255, 0.25);
+}
+
+/* Two-column request form */
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem 1.25rem;
+  max-width: 44rem;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.field label {
+  margin-top: 0;
+}
+
+.form-grid button {
+  grid-column: 1 / -1;
+  justify-self: start;
+  margin-top: 0.5rem;
 }
 
 /* ---------- Buttons ---------- */
@@ -138,6 +205,7 @@ button,
   color: #fff;
   background: var(--accent);
   border: 0;
+  border-radius: var(--radius-sm);
   cursor: pointer;
   text-decoration: none;
   transition: background-color 0.15s;
@@ -173,6 +241,7 @@ button.reject:hover {
   padding: 0.75rem 1rem 0.75rem 1.25rem;
   color: var(--danger);
   background: var(--danger-bg);
+  border-radius: var(--radius-sm);
   list-style: none;
 }
 
@@ -185,11 +254,176 @@ button.reject:hover {
   padding: 1.25rem 1.5rem;
   list-style: none;
   background: var(--card);
+  border-radius: var(--radius);
   box-shadow: var(--shadow);
 }
 
 .details li {
   margin: 0.5rem 0;
+}
+
+/* ---------- Dashboard header ---------- */
+
+.page-head {
+  width: 100%;
+  max-width: 80rem;
+  margin-bottom: 1.5rem;
+}
+
+.page-head h1 {
+  margin: 0 0 0.25rem;
+  text-align: left;
+}
+
+.page-head p {
+  max-width: none;
+  margin: 0;
+  text-align: left;
+}
+
+.section-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 80rem;
+  margin: 0.5rem 0 0.75rem;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.section-head h2 {
+  width: auto;
+  max-width: none;
+  margin: 0;
+  font-size: 1.1rem;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--ink);
+}
+
+/* ---------- KPI cards ---------- */
+
+.kpis {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(12.5rem, 1fr));
+  gap: 1rem;
+  width: 100%;
+  max-width: 80rem;
+  margin: 0 0 1.75rem;
+}
+
+.kpi {
+  --c: var(--accent-dark);
+  --t: #eaf4ff;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.1rem 1.25rem;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+.kpi-pending {
+  --c: #b45309;
+  --t: #fef3c7;
+}
+
+.kpi-soon {
+  --c: #4f46e5;
+  --t: #eef2ff;
+}
+
+.kpi-overdue {
+  --c: var(--danger);
+  --t: var(--danger-bg);
+}
+
+.kpi-done {
+  --c: #15803d;
+  --t: #dcfce7;
+}
+
+/* Nothing overdue: calm grey instead of a red alert */
+.kpi.is-zero {
+  --c: var(--muted);
+  --t: var(--line);
+}
+
+.kpi-icon {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 2.75rem;
+  height: 2.75rem;
+  color: var(--c);
+  background: var(--t);
+  border-radius: 10px;
+}
+
+.kpi-icon svg {
+  width: 1.3rem;
+  height: 1.3rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.kpi-value {
+  display: block;
+  font-size: 1.9rem;
+  font-weight: 700;
+  line-height: 1.1;
+  font-variant-numeric: tabular-nums;
+}
+
+.kpi-overdue .kpi-value {
+  color: var(--c);
+}
+
+.kpi-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+/* ---------- Status badges ---------- */
+
+.badge {
+  display: inline-block;
+  padding: 0.15rem 0.65rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  white-space: nowrap;
+  color: var(--accent-dark);
+  background: #eaf4ff;
+  border-radius: 999px;
+}
+
+.badge-pending {
+  color: #92400e;
+  background: #fef3c7;
+}
+
+.badge-approved,
+.badge-completed {
+  color: #166534;
+  background: #dcfce7;
+}
+
+.badge-rejected,
+.badge-declined {
+  color: var(--danger);
+  background: var(--danger-bg);
+}
+
+.badge-voided {
+  color: var(--muted);
+  background: var(--line);
 }
 
 /* ---------- Tables ---------- */
@@ -199,6 +433,8 @@ button.reject:hover {
   max-width: 80rem;
   overflow-x: auto;
   background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
   box-shadow: var(--shadow);
 }
 
@@ -224,7 +460,7 @@ th {
   white-space: nowrap;
   color: var(--muted);
   background: #f8fafc;
-  border-bottom: 2px solid var(--accent);
+  border-bottom: 1px solid var(--line);
 }
 
 td {
@@ -239,30 +475,82 @@ tbody tr:hover {
   background: #f8fafc;
 }
 
+/* Person cell: avatar + name */
+.person {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-weight: 600;
+}
+
+.avatar {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 2.25rem;
+  height: 2.25rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--accent-dark);
+  background: #eaf4ff;
+  border-radius: 50%;
+}
+
+/* Stage cell: badge + progress bar */
+.progress {
+  min-width: 7rem;
+  height: 4px;
+  margin-top: 0.45rem;
+  overflow: hidden;
+  background: var(--line);
+  border-radius: 999px;
+}
+
+.progress span {
+  display: block;
+  height: 100%;
+  background: var(--accent);
+  border-radius: 999px;
+}
+
+.date-overdue {
+  font-weight: 600;
+  color: var(--danger);
+}
+
 .actions {
   white-space: nowrap;
+  text-align: right;
 }
 
 .actions a {
   display: inline-block;
-  margin-right: 0.5rem;
-  padding: 0.45rem 0.8rem;
+  margin-left: 0.5rem;
+  padding: 0.4rem 0.8rem;
   font-size: 0.9rem;
   font-weight: 600;
   color: var(--accent-dark);
   background: #fff;
-  border: 1px solid var(--accent-dark);
+  border: 1px solid #cbd5e1;
+  border-radius: var(--radius-sm);
   text-decoration: none;
-  transition: background-color 0.15s;
+  transition: background-color 0.15s, border-color 0.15s;
 }
 
 .actions a:hover {
   background: #eaf4ff;
+  border-color: var(--accent-dark);
 }
 
-.actions a + a:hover {
-  background: #135ca3;
+.actions a.primary {
   color: #fff;
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+.actions a.primary:hover {
+  background: var(--accent-dark);
+  border-color: var(--accent-dark);
 }
 
 /* ---------- Hire details page ---------- */
@@ -276,6 +564,7 @@ tbody tr:hover {
   margin: 0;
   padding: 1.25rem 1.5rem;
   background: var(--card);
+  border-radius: var(--radius);
   box-shadow: var(--shadow);
 }
 
@@ -289,15 +578,157 @@ tbody tr:hover {
   overflow-wrap: anywhere;
 }
 
-/* ---------- Small screens ---------- */
+/* ---------- Back button ---------- */
 
-@media (max-width: 480px) {
+.back-row {
+  width: 100%;
+  max-width: 40rem;
+  margin-top: 1.5rem;
+}
+
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.55rem 1rem;
+  font-weight: 600;
+  color: var(--accent-dark);
+  background: #fff;
+  border: 1px solid #cbd5e1;
+  border-radius: var(--radius-sm);
+  text-decoration: none;
+  transition: background-color 0.15s, border-color 0.15s;
+}
+
+.back-link:hover {
+  background: #eaf4ff;
+  border-color: var(--accent-dark);
+}
+
+.back-link:focus-visible {
+  outline: 3px solid var(--accent-dark);
+  outline-offset: 2px;
+}
+
+.back-link svg {
+  width: 1.1rem;
+  height: 1.1rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* ---------- Tablet and phone ---------- */
+
+@media (max-width: 700px) {
+  /* Sidebar becomes a strip across the top */
   body {
-    padding-top: 5rem;
+    padding: 4.5rem 1rem 2rem;
   }
 
+  .nav {
+    right: 0;
+    bottom: auto;
+    width: 100%;
+    flex-direction: row;
+    align-items: center;
+    overflow-x: auto;
+    padding: 0.5rem 0.75rem;
+  }
+
+  .nav .brand,
+  .nav .brand:hover {
+    margin-bottom: 0;
+    padding: 0.4rem 0.6rem;
+  }
+
+  .nav a {
+    padding: 0.5rem 0.8rem;
+  }
+
+  /* Table rows become stacked cards */
+  .table-wrap,
+  h2 + .table-wrap {
+    max-width: 100%;
+    overflow: visible;
+    background: none;
+    border: 0;
+    box-shadow: none;
+  }
+
+  table,
+  tbody,
+  tr,
+  td {
+    display: block;
+  }
+
+  /* Hidden visually, still available to screen readers */
+  thead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+  }
+
+  tr {
+    margin-bottom: 0.75rem;
+    padding: 0.5rem 0;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+  }
+
+  td,
+  tbody tr:last-child td {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.5rem 1rem;
+    text-align: right;
+    border-bottom: 0;
+  }
+
+  td::before {
+    content: attr(data-label);
+    font-weight: 600;
+    text-align: left;
+    color: var(--muted);
+  }
+
+  td.actions {
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    padding-top: 0.75rem;
+  }
+
+  td.actions::before {
+    content: none;
+  }
+
+  .actions a {
+    margin: 0 0.5rem 0 0;
+  }
+}
+
+@media (max-width: 600px) {
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
   form {
     padding: 1.25rem;
+  }
+
+  .nav .brand-name {
+    display: none;
   }
 
   .details-grid {
@@ -314,4 +745,15 @@ tbody tr:hover {
   * {
     transition: none !important;
   }
+}
+
+@media (max-width: 700px) {
+  .nav { gap: 0.25rem; scrollbar-width: none; }
+  .nav::-webkit-scrollbar { display: none; }
+  .nav .brand-name { display: none; }
+  .nav a { gap: 0.5rem; padding: 0.5rem 0.65rem; font-size: 0.95rem; }
+}
+
+@media (max-width: 360px) {
+  .nav a:not(.brand) svg { display: none; }
 }

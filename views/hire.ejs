@@ -31,8 +31,8 @@
 
     <h2>Progress</h2>
     <dl class="details-grid">
-      <dt>Stage</dt><dd><%= hire.new_hire_stage %></dd>
-      <dt>Approval</dt><dd><%= hire.approval_status %></dd>
+      <dt>Stage</dt><dd><span class="badge"><%= hire.new_hire_stage %></span></dd>
+      <dt>Approval</dt><dd><span class="badge badge-<%= hire.approval_status.toLowerCase() %>"><%= hire.approval_status %></span></dd>
     </dl>
 
     <h2>Documents</h2>
@@ -52,10 +52,14 @@
           <tbody>
             <% hire.documents.forEach((doc) => { %>
               <tr>
-                <td><%= doc.document_name %></td>
-                <td><%= doc.document_type || "—" %></td>
-                <td><%= doc.status || "—" %></td>
-                <td><%= doc.sent_date ? doc.sent_date.slice(0, 10) : "—" %></td>
+                <td data-label="Document"><%= doc.document_name %></td>
+                <td data-label="Type"><%= doc.document_type || "—" %></td>
+                <td data-label="Status">
+                  <% if (doc.status) { %>
+                    <span class="badge badge-<%= doc.status.toLowerCase() %>"><%= doc.status %></span>
+                  <% } else { %>—<% } %>
+                </td>
+                <td data-label="Sent"><%= doc.sent_date ? doc.sent_date.slice(0, 10) : "—" %></td>
               </tr>
             <% }) %>
           </tbody>
@@ -64,6 +68,11 @@
     <% } %>
   <% } %>
 
-  <p><a href="/dashboard">← Back to dashboard</a></p>
+  <div class="back-row">
+  <a class="back-link" href="/dashboard">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><line x1="19" x2="5" y1="12" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+    Back to dashboard
+  </a>
+</div>
 </body>
 </html>
