@@ -1,6 +1,19 @@
 <% const path = typeof currentPath !== "undefined" ? currentPath : ""; %>
 <nav class="nav">
-  <a class="brand" href="/dashboard">HRAutomationLabs</a>
-  <a href="/dashboard" class="<%= path.startsWith('/dashboard') || path.startsWith('/hires') ? 'active' : '' %>">Dashboard</a>
-  <a href="/form" class="<%= path.startsWith('/form') ? 'active' : '' %>">New request</a>
+  <a class="brand" href="/dashboard">
+    <span class="logo">
+      <img src="/HRAuto-logo.png" width="20" height="20" alt="">
+    </span>
+    <span class="brand-name">HRAutomationLabs</span>
+  </a>
+
+  <a href="/form" class="<%= path.startsWith('/form') ? 'active' : '' %>">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M8 12h8M12 8v8"/></svg>
+    New request
+  </a>
+
+  <a href="/dashboard" class="<%= path.startsWith('/dashboard') || path.startsWith('/hires') ? 'active' : '' %>">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></svg>
+    Dashboard
+  </a>
 </nav>
