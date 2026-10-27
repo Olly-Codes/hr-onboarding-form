@@ -10,6 +10,29 @@
   <%- include("partials/nav") %>
   <h1>Onboarding dashboard</h1>
 
+  <div class="kpis">
+    <div class="kpi">
+      <span class="kpi-value"><%= stats.open %></span>
+      <span class="kpi-label">Open onboardings</span>
+    </div>
+    <div class="kpi">
+      <span class="kpi-value"><%= stats.pending %></span>
+      <span class="kpi-label">Pending approvals</span>
+    </div>
+    <div class="kpi">
+      <span class="kpi-value"><%= stats.startingSoon %></span>
+      <span class="kpi-label">Starting in 2 weeks</span>
+    </div>
+    <div class="kpi <%= stats.overdue ? 'alert' : '' %>">
+      <span class="kpi-value"><%= stats.overdue %></span>
+      <span class="kpi-label">Overdue</span>
+    </div>
+    <div class="kpi">
+      <span class="kpi-value"><%= stats.onboarded %></span>
+      <span class="kpi-label">Onboarded</span>
+    </div>
+  </div>
+
   <% if (!hires.length) { %>
     <p>No new hires yet.</p>
   <% } else { %>
@@ -29,12 +52,12 @@
         <tbody>
           <% hires.forEach((hire) => { %>
             <tr>
-              <td><%= hire.new_hire_name %></td>
-              <td><%= hire.job.job_name %></td>
-              <td><%= hire.job.departments.department_name %></td>
-              <td><%= hire.new_hire_start_date %></td>
-              <td><%= hire.new_hire_stage %></td>
-              <td><%= hire.approval_status %></td>
+              <td data-label="Name"><%= hire.new_hire_name %></td>
+              <td data-label="Job"><%= hire.job.job_name %></td>
+              <td data-label="Department"><%= hire.job.departments.department_name %></td>
+              <td data-label="Start date"><%= hire.new_hire_start_date %></td>
+              <td data-label="Stage"><span class="badge"><%= hire.new_hire_stage %></span></td>
+              <td data-label="Approval"><span class="badge badge-<%= hire.approval_status.toLowerCase() %>"><%= hire.approval_status %></span></td>
               <td class="actions">
                 <a href="/hires/<%= hire.new_hire_id %>">View</a>
                 <% if (hire.approval_status === "Pending") { %>
