@@ -14,59 +14,74 @@
   <% } else { %>
     <h1><%= hire.new_hire_name %></h1>
 
-    <h2>Details</h2>
-    <dl class="details-grid">
-      <dt>Email</dt><dd><%= hire.new_hire_email %></dd>
-      <dt>Phone</dt><dd><%= hire.new_hire_phone || "—" %></dd>
-      <dt>Start date</dt><dd><%= hire.new_hire_start_date %></dd>
-      <dt>Job</dt><dd><%= hire.job.job_name %></dd>
-      <dt>Department</dt><dd><%= hire.job.departments.department_name %></dd>
-    </dl>
-
-    <h2>People</h2>
-    <dl class="details-grid">
-      <dt>Manager</dt><dd><%= hire.manager.employee_name %></dd>
-      <dt>HR owner</dt><dd><%= hire.hr_owner.employee_name %></dd>
-    </dl>
-
-    <h2>Progress</h2>
-    <dl class="details-grid">
-      <dt>Stage</dt><dd><span class="badge"><%= hire.new_hire_stage %></span></dd>
-      <dt>Approval</dt><dd><span class="badge badge-<%= hire.approval_status.toLowerCase() %>"><%= hire.approval_status %></span></dd>
-    </dl>
-
-    <h2>Documents</h2>
-    <% if (!hire.documents.length) { %>
-      <p>No documents yet.</p>
-    <% } else { %>
-      <div class="table-wrap">
-        <table>
-          <thead>
-            <tr>
-              <th>Document</th>
-              <th>Type</th>
-              <th>Status</th>
-              <th>Sent</th>
-            </tr>
-          </thead>
-          <tbody>
-            <% hire.documents.forEach((doc) => { %>
-              <tr>
-                <td data-label="Document"><%= doc.document_name %></td>
-                <td data-label="Type"><%= doc.document_type || "—" %></td>
-                <td data-label="Status">
-                  <% if (doc.status) { %>
-                    <span class="badge badge-<%= doc.status.toLowerCase() %>"><%= doc.status %></span>
-                  <% } else { %>—<% } %>
-                </td>
-                <td data-label="Sent"><%= doc.sent_date ? doc.sent_date.slice(0, 10) : "—" %></td>
-              </tr>
-            <% }) %>
-          </tbody>
-        </table>
+    <div class="details-wrapper">
+      <div>
+        <h2>Details</h2>
+        <dl class="details-grid">
+          <dt>Email</dt><dd><%= hire.new_hire_email %></dd>
+          <dt>Phone</dt><dd><%= hire.new_hire_phone || "—" %></dd>
+          <dt>Start date</dt><dd><%= hire.new_hire_start_date %></dd>
+          <dt>Job</dt><dd><%= hire.job.job_name %></dd>
+          <dt>Department</dt><dd><%= hire.job.departments.department_name %></dd>
+        </dl>
       </div>
-    <% } %>
-  <% } %>
+
+      <div>
+        <h2>People</h2>
+        <dl class="details-grid">
+          <dt>Manager</dt><dd><%= hire.manager.employee_name %></dd>
+          <dt>HR owner</dt><dd><%= hire.hr_owner.employee_name %></dd>
+        </dl>
+      </div>
+
+      <div>
+        <h2>Documents</h2>
+        <% if (!hire.documents.length) { %>
+          <p>No documents yet.</p>
+        <% } else { %>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Document</th>
+                  <th>Type</th>
+                  <th>Status</th>
+                  <th>Sent</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% hire.documents.forEach((doc) => { %>
+                  <tr>
+                    <td data-label="Document"><%= doc.document_name %></td>
+                    <td data-label="Type"><%= doc.document_type || "—" %></td>
+                    <td data-label="Status">
+                      <% if (doc.status) { %>
+                        <span class="badge badge-<%= doc.status.toLowerCase() %>"><%= doc.status %></span>
+                      <% } else { %>—<% } %>
+                    </td>
+                    <td data-label="Sent"><%= doc.sent_date ? doc.sent_date.slice(0, 10) : "—" %></td>
+                  </tr>
+                <% }) %>
+              </tbody>
+            </table>
+          </div>
+        <% } %>
+      <% } %>
+      </div>
+
+      <div class="progress-grid-container">
+        <h2>Progress</h2>
+        <dl class="details-grid">
+          <dt>Stage</dt><dd><span class="badge"><%= hire.new_hire_stage %></span></dd>
+          <dt>Approval</dt><dd><span class="badge badge-<%= hire.approval_status.toLowerCase() %>"><%= hire.approval_status %></span></dd>
+        </dl>
+      </div>
+
+      
+    </div>
+    
+    
+    
 
   <div class="back-row">
   <a class="back-link" href="/dashboard">

@@ -90,7 +90,6 @@ a {
   font-weight: 600;
   text-decoration: none;
   white-space: nowrap;
-  border-radius: var(--radius-sm);
   transition: background-color 0.15s, color 0.15s;
 }
 
@@ -140,7 +139,6 @@ form {
   max-width: 28rem;
   padding: 2rem;
   background: var(--card);
-  border-radius: var(--radius);
   box-shadow: var(--shadow);
 }
 
@@ -157,7 +155,6 @@ select {
   color: inherit;
   background: #fff;
   border: 1px solid #cbd5e1;
-  border-radius: var(--radius-sm);
   transition: border-color 0.15s, box-shadow 0.15s;
 }
 
@@ -205,7 +202,6 @@ button,
   color: #fff;
   background: var(--accent);
   border: 0;
-  border-radius: var(--radius-sm);
   cursor: pointer;
   text-decoration: none;
   transition: background-color 0.15s;
@@ -241,7 +237,6 @@ button.reject:hover {
   padding: 0.75rem 1rem 0.75rem 1.25rem;
   color: var(--danger);
   background: var(--danger-bg);
-  border-radius: var(--radius-sm);
   list-style: none;
 }
 
@@ -254,7 +249,6 @@ button.reject:hover {
   padding: 1.25rem 1.5rem;
   list-style: none;
   background: var(--card);
-  border-radius: var(--radius);
   box-shadow: var(--shadow);
 }
 
@@ -322,7 +316,6 @@ button.reject:hover {
   padding: 1.1rem 1.25rem;
   background: var(--card);
   border: 1px solid var(--line);
-  border-radius: var(--radius);
   box-shadow: var(--shadow);
 }
 
@@ -393,7 +386,7 @@ button.reject:hover {
 
 /* ---------- Status badges ---------- */
 
-.badge {
+/* .badge {
   display: inline-block;
   padding: 0.15rem 0.65rem;
   font-size: 0.8rem;
@@ -424,7 +417,7 @@ button.reject:hover {
 .badge-voided {
   color: var(--muted);
   background: var(--line);
-}
+} */
 
 /* ---------- Tables ---------- */
 
@@ -434,7 +427,7 @@ button.reject:hover {
   overflow-x: auto;
   background: var(--card);
   border: 1px solid var(--line);
-  border-radius: var(--radius);
+  /* border-radius: var(--radius); */
   box-shadow: var(--shadow);
 }
 
@@ -532,7 +525,6 @@ tbody tr:hover {
   color: var(--accent-dark);
   background: #fff;
   border: 1px solid #cbd5e1;
-  border-radius: var(--radius-sm);
   text-decoration: none;
   transition: background-color 0.15s, border-color 0.15s;
 }
@@ -555,6 +547,14 @@ tbody tr:hover {
 
 /* ---------- Hire details page ---------- */
 
+.details-wrapper {
+  min-width: 900px;
+
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
 .details-grid {
   display: grid;
   grid-template-columns: 9rem 1fr;
@@ -564,7 +564,6 @@ tbody tr:hover {
   margin: 0;
   padding: 1.25rem 1.5rem;
   background: var(--card);
-  border-radius: var(--radius);
   box-shadow: var(--shadow);
 }
 
@@ -581,9 +580,8 @@ tbody tr:hover {
 /* ---------- Back button ---------- */
 
 .back-row {
-  width: 100%;
-  max-width: 40rem;
   margin-top: 1.5rem;
+  background-color: red;
 }
 
 .back-link {
@@ -595,7 +593,6 @@ tbody tr:hover {
   color: var(--accent-dark);
   background: #fff;
   border: 1px solid #cbd5e1;
-  border-radius: var(--radius-sm);
   text-decoration: none;
   transition: background-color 0.15s, border-color 0.15s;
 }
@@ -626,6 +623,14 @@ tbody tr:hover {
   /* Sidebar becomes a strip across the top */
   body {
     padding: 4.5rem 1rem 2rem;
+  }
+
+  .details-wrapper {
+    width: 100%;
+
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0;
   }
 
   .nav {
@@ -679,7 +684,6 @@ tbody tr:hover {
     padding: 0.5rem 0;
     background: var(--card);
     border: 1px solid var(--line);
-    border-radius: var(--radius);
     box-shadow: var(--shadow);
   }
 
