@@ -12,7 +12,7 @@
   --radius: 12px;
   --radius-sm: 8px;
   --shadow: 0 1px 3px rgba(15, 23, 42, 0.08), 0 4px 16px rgba(15, 23, 42, 0.06);
-  --sidebar-w: 14.5rem;
+  --sidebar-w: 20rem;
 }
 
 * {
@@ -117,6 +117,15 @@ a {
   stroke-width: 2;
   stroke-linecap: round;
   stroke-linejoin: round;
+}
+
+.brand {
+  display: flex;
+  flex-direction: column;
+}
+
+.brand-name {
+  font-size: 1.5rem;
 }
 
 .nav .brand,
@@ -489,7 +498,7 @@ tbody tr:hover {
   border-radius: 50%;
 }
 
-/* Stage cell: badge + progress bar */
+/* Stage cell: progress bar */
 .progress {
   min-width: 7rem;
   height: 4px;
